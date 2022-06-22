@@ -38,3 +38,19 @@ app.post('/api/new-movie', ({ body }, res) => {
       });
     });
   });
+
+  // Read all movies
+app.get('/api/movies', (req, res) => {
+    const sql = `SELECT id, movie_name AS title FROM movies`;
+    
+    db.query(sql, (err, rows) => {
+      if (err) {
+        res.status(500).json({ error: err.message });
+         return;
+      }
+      res.json({
+        message: 'success',
+        data: rows
+      });
+    });
+  });
